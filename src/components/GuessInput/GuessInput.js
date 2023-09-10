@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
-import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
-
-function GuessInput({ guesses, handleGuessSubmit }) {
+function GuessInput({ handleGuessSubmit, gameStatus }) {
 	const [guess, setGuess] = useState('');
 
 	const handleChange = (event) => {
@@ -11,13 +9,7 @@ function GuessInput({ guesses, handleGuessSubmit }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log({ guess });
 		setGuess('');
-
-		if (guesses.length >= NUM_OF_GUESSES_ALLOWED) {
-			window.alert('You already guessed 6 times!');
-			return;
-		}
 
 		handleGuessSubmit(guess);
 	};
@@ -27,6 +19,7 @@ function GuessInput({ guesses, handleGuessSubmit }) {
 			<label htmlFor="guess-input">Enter guess:</label>
 			<input
 				required
+				disabled={gameStatus !== 'playing'}
 				id="guess-input"
 				type="text"
 				value={guess}
