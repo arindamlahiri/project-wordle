@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function GuessInput() {
+function GuessInput({ guesses, handleGuessSubmit }) {
 	const [guess, setGuess] = useState('');
 
 	const handleChange = (event) => {
@@ -11,6 +11,13 @@ function GuessInput() {
 		e.preventDefault();
 		console.log({ guess });
 		setGuess('');
+
+		if (guesses.length >= 6) {
+			window.alert('You already guessed 6 times!');
+			return;
+		}
+
+		handleGuessSubmit(guess);
 	};
 
 	return (
